@@ -13,4 +13,9 @@ __pycache__/
 .idea
 .vscode
 
-*.log
+*.log# ML artifacts
+models/
+ml/features/*.csv
+
+# Runtime files
+dashboard/live/live_match_state.json

@@ -51,6 +51,7 @@ for message in consumer:
         "wickets": wickets,
         "legal_balls": legal_balls,
         "display_over": f"{completed_overs}.{balls_in_over}",
+        "overs_float": round(legal_balls / 6, 2),
         "batter": data["batter"],
         "bowler": data["bowler"],
         "runs": data["total_runs"]
