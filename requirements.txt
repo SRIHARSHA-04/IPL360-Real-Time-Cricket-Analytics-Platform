@@ -1,0 +1,17 @@
+pandas
+numpy
+pyarrow
+
+streamlit
+plotly
+
+psycopg2-binary
+
+kafka-python
+
+pyspark
+
+scikit-learn
+xgboost
+
+sqlalchemy
