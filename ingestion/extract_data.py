@@ -28,63 +28,79 @@ for file in json_files:
         teams = info.get("teams", [])
 
         winner = None
-
         outcome = info.get("outcome", {})
 
         if "winner" in outcome:
             winner = outcome["winner"]
 
-        matches.append({
-            "match_id": match_id,
-            "date": str(info.get("dates", [""])[0]),
-            "venue": info.get("venue"),
-            "team1": teams[0] if len(teams) > 0 else None,
-            "team2": teams[1] if len(teams) > 1 else None,
-            "winner": winner
-        })
+        matches.append(
+            {
+                "match_id": match_id,
+                "date": str(info.get("dates", [""])[0]),
+                "venue": info.get("venue"),
+                "team1": teams[0] if len(teams) > 0 else None,
+                "team2": teams[1] if len(teams) > 1 else None,
+                "winner": winner,
+            }
+        )
 
         innings_data = data.get("innings", [])
 
         for innings_no, innings in enumerate(innings_data, start=1):
 
             team_name = innings.get("team")
-
             overs = innings.get("overs", [])
 
             for over in overs:
 
                 over_no = over.get("over")
 
-                for delivery in over.get("deliveries", []):
+                for ball_no, delivery in enumerate(
+                    over.get("deliveries", []),
+                    start=1
+                ):
 
                     batter = delivery.get("batter")
                     bowler = delivery.get("bowler")
 
-                    players.add(batter)
-                    players.add(bowler)
+                    if batter:
+                        players.add(batter)
 
-                    batter_runs = delivery.get("runs", {}).get("batter", 0)
-                    extras = delivery.get("runs", {}).get("extras", 0)
-                    total_runs = delivery.get("runs", {}).get("total", 0)
+                    if bowler:
+                        players.add(bowler)
+
+                    batter_runs = delivery.get("runs", {}).get(
+                        "batter", 0
+                    )
+
+                    extras = delivery.get("runs", {}).get(
+                        "extras", 0
+                    )
+
+                    total_runs = delivery.get("runs", {}).get(
+                        "total", 0
+                    )
 
                     wicket = 0
 
                     if "wickets" in delivery:
                         wicket = 1
 
-                    deliveries.append({
-                        "match_id": match_id,
-                        "innings": innings_no,
-                        "batting_team": team_name,
-                        "over": over_no,
-                        "ball": delivery.get("ball"),
-                        "batter": batter,
-                        "bowler": bowler,
-                        "batter_runs": batter_runs,
-                        "extras": extras,
-                        "total_runs": total_runs,
-                        "wicket": wicket
-                    })
+                    deliveries.append(
+                        {
+                            "match_id": match_id,
+                            "innings": innings_no,
+                            "batting_team": team_name,
+                            "over": over_no,
+                            "ball": ball_no,
+                            "batter": batter,
+                            "bowler": bowler,
+                            "batter_runs": batter_runs,
+                            "extras": extras,
+                            "total_runs": total_runs,
+                            "wicket": wicket,
+                        }
+                    )
 
     except Exception as e:
         print(f"Error processing {file.name}: {e}")
@@ -114,7 +130,6 @@ players_df.to_csv(
 )
 
 print("Files created successfully")
-
 print(f"Matches: {len(matches_df)}")
 print(f"Deliveries: {len(deliveries_df)}")
 print(f"Players: {len(players_df)}")
