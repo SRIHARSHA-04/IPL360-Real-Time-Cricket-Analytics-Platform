@@ -1,95 +1,87 @@
-# =====================================
+# ==========================================
+# IPL360 .gitignore
+# ==========================================
+
 # Python
-# =====================================
-
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# =====================================
 # Virtual Environments
-# =====================================
-
 venv/
-.venv/
 env/
+ENV/
+.venv/
 
-# =====================================
-# VS Code
-# =====================================
-
-.vscode/
-
-# =====================================
-# MacOS
-# =====================================
-
+# macOS
 .DS_Store
 
-# =====================================
-# Jupyter
-# =====================================
+# IDE
+.vscode/
+.idea/
 
+# Jupyter
 .ipynb_checkpoints/
 
-# =====================================
-# Logs
-# =====================================
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
 
+# Streamlit
+.streamlit/
+
+# Runtime Files
+dashboard/live/live_match_state.json
+
+# Logs
 *.log
 
-# =====================================
-# Environment Variables
-# =====================================
-
-.env
-
-# =====================================
-# Data Lake Outputs
-# =====================================
-
-data/raw/
-data/processed/
-data/curated/
-
-# =====================================
-# Machine Learning Artifacts
-# =====================================
-
+# ML Models
 models/
+
+# Feature Engineering Outputs
 ml/features/*.csv
 ml/win_probability/*.csv
 
-# =====================================
-# Runtime Dashboard Files
-# =====================================
+# Fantasy Generated Outputs
+ml/fantasy/*.csv
 
-dashboard/live/live_match_state.json
+# Temporary Files
+*.tmp
+*.temp
 
-# =====================================
-# Streamlit Cache
-# =====================================
+# Build Artifacts
+dist/
+build/
 
-.streamlit/secrets.toml
+# Generated Project Files
+project_structure.txt
+clean_structure.txt
 
-# =====================================
-# PostgreSQL Dumps
-# =====================================
+# OS Files
+Thumbs.db
 
+# Spark
+spark-warehouse/
+metastore_db/
+
+# Kafka
+kafka-logs/
+
+# Database Dumps
 *.sql.gz
 *.dump
 
-# =====================================
-# Kafka Logs
-# =====================================
+# Environment Variables
+.env
+.env.*
 
-kafka-logs/
-logs/
+# Documentation Build Outputs
+docs/site/
+docs/build/
 
-# =====================================
-# Temporary Files
-# =====================================
-
-*.tmp
-*.temp
+# Swap Files
+*.swp
+*.swo
+*~
