@@ -34,7 +34,7 @@ for _, row in match_df.iterrows():
         f"Runs {row['total_runs']}"
     )
 
-    time.sleep(1)
+    time.sleep(0.05)
 
 producer.flush()
 
